@@ -90,11 +90,16 @@ All require explicit per-action user consent (SEC-007). Deferred pending ADR.
 | --- | --- | --- |
 | `storage` | Persist activation preference | FR-010, AC-FR-010-1 |
 | `activeTab` | Act on the current tab after a user gesture, avoiding broad host access | FR-003/FR-004 |
+| `scripting` | Inject the content script into the current tab **only** on explicit activation (no declared content script) | FR-003/FR-004, AC-FR-004-1 |
 
-Broad host permissions (`<all_urls>`) are deliberately avoided for the MVP.
-Content-script injection is scoped to user-authorized tabs via `activeTab`
-and/or `scripting` with a user gesture, rather than persistent all-site access.
-This may be revised by ADR when selection detection needs are validated.
+Broad host permissions (`<all_urls>`) are deliberately avoided for the MVP, and
+no content script is declared statically. The content script is injected on
+demand via `scripting.executeScript` after the user activates the assistant,
+which also grants `activeTab` for that tab. Adding `scripting` beyond
+`storage`+`activeTab` is a user-approved permission change (AGENTS.md §12),
+recorded in `docs/requirements/requirements-change-log.md` (RCL-001) and §4 of
+`docs/architecture/security-architecture.md`. This may be revised by ADR when
+selection detection needs are validated.
 
 ## 9. Failure handling
 

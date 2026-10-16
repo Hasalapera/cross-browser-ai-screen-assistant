@@ -39,9 +39,15 @@
 
 ## 4. Permission model
 
-Permissions are declared per `system-architecture.md` §8 and each maps to a
-requirement. Adding any permission requires user approval (AGENTS.md §12) and a
-change-log record, because permissions expand the attack surface (T-04).
+The MVP requests exactly `storage`, `activeTab`, and `scripting`, declared per
+`system-architecture.md` §8; each maps to a requirement (`storage` → FR-010;
+`activeTab` → FR-003/FR-004; `scripting` → FR-003/FR-004). `scripting` is used
+only to inject the content script into the active tab on explicit user
+activation, so the extension does **not** declare a persistent all-sites content
+script and requests no host permissions. Adding a permission expands the attack
+surface (T-04), so it requires user approval (AGENTS.md §12) and a change-log
+record; the `scripting` addition is recorded as RCL-001 in
+`docs/requirements/requirements-change-log.md`.
 
 ## 5. Data handling and retention
 

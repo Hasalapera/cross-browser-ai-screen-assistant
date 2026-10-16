@@ -5,8 +5,10 @@ a page and receive an AI-generated answer or explanation in a floating panel —
 with explicit user control, least-privilege permissions, and optional OCR as a
 later, consent-gated capability.
 
-> **Status:** Phase 0 — governance foundation only. No extension code, AI,
-> OCR, or backend exists yet. See `docs/quality/known-limitations.md`.
+> **Status:** Phase 1 — MVP extension skeleton implemented (manifest, popup,
+> background state, content-script selection + local panel). No AI, OCR,
+> backend, or network access. Browser-level checks are pending. See
+> `docs/quality/known-limitations.md`.
 
 ## Repository layout
 
@@ -20,8 +22,18 @@ docs/
   requirements/               requirements, acceptance criteria, change log
   architecture/               system, security, ADRs
   quality/                    test strategy, traceability, limitations
-  development/                workflow, definition of done, skill catalog
-scripts/governance-check.py   Deterministic documentation governance checks
+  development/                workflow, definition of done, skill catalog, phase plan
+src/
+  shared/                     browser-api, messages, state, selection
+  background/                 state ownership, persistence, injection, messaging
+  content/                    selection listener + shadow-DOM panel
+  popup/                      toolbar popup (state + activate/deactivate)
+  manifest.chromium.json      MV3 manifest for Chromium-family browsers
+  manifest.firefox.json       Firefox-adjusted MV3 manifest
+scripts/
+  build-extension.py          Emits dist/chromium and dist/firefox
+  governance-check.py         Deterministic documentation governance checks
+tests/                        node:test unit, build, manifest, source-safety tests
 ```
 
 ## How this project is governed
@@ -39,6 +51,19 @@ scripts/governance-check.py   Deterministic documentation governance checks
 - **Requirement changes** are recorded in
   `docs/requirements/requirements-change-log.md` (never silently rewritten).
 
+## Build and run
+
+Build both browser packages from the one source tree:
+
+```sh
+python3 scripts/build-extension.py
+```
+
+This writes `dist/chromium/` and `dist/firefox/`. Load the relevant folder as an
+unpacked extension (Chrome: `chrome://extensions`, enable Developer mode;
+Firefox: `about:debugging` → This Firefox → Load Temporary Add-on). Click the
+toolbar icon to activate, then select text on a page to see the local panel.
+
 ## Validation
 
 Run governance checks from the repository root:
@@ -47,15 +72,19 @@ Run governance checks from the repository root:
 python3 scripts/governance-check.py
 ```
 
-Unit tests (none yet; planned with Phase 1 implementation):
+Run the unit / integration / build / source-safety tests:
 
 ```sh
-node --test tests/
+node --test "tests/*.test.mjs"
 ```
 
 The governance script is static: it validates document presence, skill
 frontmatter, ID well-formedness, and cross-references. It cannot judge
 semantics or runtime behaviour — see `docs/quality/known-limitations.md`.
+
+Browser verification is manual: follow
+`docs/quality/manual-verification-checklist.md` (procedure only; no browser
+results are recorded yet).
 
 ## Contributing / agent workflow
 

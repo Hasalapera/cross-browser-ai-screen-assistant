@@ -20,8 +20,14 @@ named, executed check per browser.
 | Static/governance | Document, ID, traceability, and reference integrity | `scripts/governance-check.py` |
 | Unit | Pure logic (state, selection extraction, sanitisation helpers) | Node's built-in test runner (`node:test`) |
 | Integration | Messaging between content script, background, popup | Node + DOM/messaging doubles |
-| End-to-end | Real browser behaviour on loaded extension | Manual checklist per browser until automated tooling is approved |
-| Security | Secret scan, no-network check, text-rendering check | governance scan + manual/DOM assertions |
+| Build | Both browser packages emitted from one source tree | `scripts/build-extension.py` + `node:test` |
+| Source safety | No code execution, no markup injection, no network calls | `node:test` scans over `src/` |
+| End-to-end | Real browser behaviour on loaded extension | Manual checklist per browser (`docs/quality/manual-verification-checklist.md`) until automated tooling is approved |
+| Security | Secret scan, no-network check, text-rendering check | governance scan + source scans + DOM-double asserts |
+
+The MVP runs the Unit, Integration, Build, Source-safety, and Static levels with
+`node --test`; the source modules are executed in an isolated `node:vm` context
+so the shipped files themselves are exercised. End-to-end checks remain manual.
 
 ## 3. Test ID scheme
 

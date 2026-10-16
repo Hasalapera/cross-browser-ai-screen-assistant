@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Screen Assistant</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup" role="region" aria-label="AI Screen Assistant">
+      <h1 class="popup__title">AI Screen Assistant</h1>
+      <p class="popup__state" id="state" role="status" aria-live="polite">Inactive</p>
+      <button class="popup__toggle" id="toggle" type="button" aria-pressed="false">
+        Activate
+      </button>
+      <p class="popup__hint">
+        Turn the assistant on, then select text on a page to view it in a local
+        panel. Nothing is sent anywhere in this MVP.
+      </p>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>

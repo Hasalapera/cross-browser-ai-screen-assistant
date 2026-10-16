@@ -1,0 +1,42 @@
+:root {
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+  min-width: 260px;
+}
+
+.popup {
+  padding: 14px;
+}
+
+.popup__title {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+.popup__state {
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+
+.popup__toggle {
+  width: 100%;
+  padding: 8px 10px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.popup__hint {
+  margin: 12px 0 0;
+  color: #555;
+  font-size: 12px;
+}
+
+.popup__toggle:focus-visible {
+  outline: 2px solid #1a73e8;
+  outline-offset: 2px;
+}

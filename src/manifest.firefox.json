@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Cross-Browser AI Screen Assistant",
+  "version": "0.2.0",
+  "description": "Select text on a page and view it in a local floating panel. This MVP sends nothing anywhere.",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "action": {
+    "default_title": "AI Screen Assistant",
+    "default_popup": "popup.html"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "cross-browser-ai-screen-assistant@example.invalid",
+      "strict_min_version": "115.0"
+    }
+  }
+}
