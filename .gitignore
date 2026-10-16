@@ -1,0 +1,30 @@
+# macOS
+.DS_Store
+
+# Dependencies / caches
+node_modules/
+.npm/
+.cache/
+.eslintcache
+
+# Build output
+dist/
+build/
+*.zip
+*.crx
+*.xpi
+
+# Environment and secrets
+.env
+.env.*
+*.pem
+*.key
+secrets.json
+
+# Logs and coverage
+*.log
+coverage/
+
+# Editors
+.vscode/
+.idea/
